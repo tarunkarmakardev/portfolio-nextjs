@@ -13,6 +13,10 @@ export default {
         secondary: "rgb(var(--color-secondary))",
         accent: "rgb(var(--color-accent))",
       },
+      fontFamily: {
+        preahvihear: "var(--font-preahvihear)",
+        poppins: "var(--font-poppins)",
+      },
     },
   },
   plugins: [],
