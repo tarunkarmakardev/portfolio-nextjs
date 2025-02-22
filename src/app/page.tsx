@@ -5,9 +5,10 @@ export default function Home() {
   return (
     <div>
       <TopBar />
-      <main className="p-2 text-white max-w-[600px] mx-auto">
+      <main className="p-2 text-white max-w-[900px] mx-auto">
         <Hero />
         <AboutMe />
+        <WorkExperience />
       </main>
     </div>
   );
@@ -34,7 +35,7 @@ const topBarLinks = [
 
 function TopBar() {
   return (
-    <header className="flex justify-between items-center gap-2 p-2 bg-primary/80 filter top-0 sticky backdrop-blur-sm border-b border-secondary">
+    <header className="flex justify-between items-center gap-2 p-2 bg-primary/80 filter top-0 sticky backdrop-blur-sm border-b border-secondary z-20">
       <div>
         <Logo />
       </div>
@@ -113,8 +114,8 @@ function Hero() {
 
 function AboutMe() {
   return (
-    <section>
-      <div className="text-2xl">{"I'm a Software Engineer."}</div>
+    <section id="about" className="mb-20">
+      <div className="text-2xl mb-6">{"I'm a Software Engineer."}</div>
       <div className="text-xs">
         My recent company was{" "}
         <Link href="https://www.thedataplant.com/" target="_blank">
@@ -127,5 +128,88 @@ function AboutMe() {
         an equilibrium between user needs and business goals.
       </div>
     </section>
+  );
+}
+
+const workExperiences = [
+  {
+    company: "Dataplant Inc",
+    position: "UI Developer",
+    duration: "May 2022 - Present",
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+  },
+  {
+    company: "Get Thrifty",
+    position: "Software Developer",
+    duration: "Feb 2022 - May 2022",
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+  },
+  {
+    company: "Null Innovation",
+    position: "Junior Frontend Engineer",
+    duration: "June 2021 - Feb 2022",
+    description:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+  },
+];
+
+function WorkExperience() {
+  return (
+    <section id="work-experience">
+      <div className="text-2xl mb-6">Work Experience</div>
+      <div className="grid grid-cols-2 gap-4">
+        {workExperiences.map((workExperience) => (
+          <WorkExperienceCard
+            key={workExperience.company}
+            description={workExperience.description}
+            company={workExperience.company}
+            position={workExperience.position}
+            duration={workExperience.duration}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+type WorkExperienceCardProps = {
+  company: string;
+  position: string;
+  duration: string;
+  description: string;
+};
+
+function WorkExperienceCard({
+  company,
+  duration,
+  position,
+  description,
+}: WorkExperienceCardProps) {
+  return (
+    <div
+      className="p-4 border border-secondary rounded-md"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(19,4,40,1) 7%, rgba(37,16,67,1) 34%, rgba(56,18,109,1) 52%, rgba(38,16,69,1) 85%, rgba(25,6,52,1) 99%)",
+      }}
+    >
+      <div className="flex gap-2 items-center">
+        <Image
+          className="flex-shrink-0"
+          src="/work-image.png"
+          alt="work-image"
+          width={100}
+          height={25}
+        />
+        <div className="flex flex-col gap-1">
+          <div className="font-bold font-poppins">{position}</div>
+          <div className="text-xs font-poppins">{company}</div>
+          <div className="text-xs font-poppins">{duration}</div>
+          <div className="text-xs font-poppins">{description}</div>
+        </div>
+      </div>
+    </div>
   );
 }
