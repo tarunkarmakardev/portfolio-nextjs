@@ -128,3 +128,21 @@ export const skills = [
     image: "/express.png",
   },
 ];
+
+export const projects = [
+  {
+    name: "Leads Tracker",
+    description:
+      "A Leads Tracker app for managing leads, saving notes, call logs, and more.",
+    image: "/app-ui.png",
+    github: "https://github.com/tarunkarmakardev/leads-tracker",
+  },
+  {
+    name: "Google Drive Upload",
+    description:
+      "A Google Drive Sync app for uploading and zipping a folder on system.",
+    image: "/app-ui.png",
+    github:
+      "https://github.com/tarunkarmakardev/google-drive-sync-node-express",
+  },
+];

@@ -1,6 +1,13 @@
-import { aboutMe, skills, topBarLinks, workExperiences } from "@/data";
+import {
+  aboutMe,
+  projects,
+  skills,
+  topBarLinks,
+  workExperiences,
+} from "@/data";
 import Image from "next/image";
 import Link from "next/link";
+import { Github, MoveRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -11,6 +18,7 @@ export default function Home() {
         <AboutMe />
         <WorkExperience />
         <Skills />
+        <Projects />
       </main>
     </div>
   );
@@ -183,7 +191,7 @@ function WorkExperienceCard({
 
 function Skills() {
   return (
-    <section id="skills">
+    <section id="skills" className="mb-12">
       <div className="text-2xl mb-4">Skills</div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {skills.map((skill) => (
@@ -219,5 +227,84 @@ function SkillCard({ text, image }: SkillCardProps) {
         <div className="font-bold font-poppins">{text}</div>
       </div>
     </div>
+  );
+}
+
+function Projects() {
+  return (
+    <section id="projects">
+      <div className="text-2xl mb-4">Projects</div>
+      <div className="flex flex-col gap-2 sm:gap-16">
+        {projects.map((project, idx) => (
+          <ProjectCard
+            key={project.name}
+            idx={idx}
+            name={project.name}
+            description={project.description}
+            image={project.image}
+            github={project.github}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+type ProjectCardProps = {
+  idx: number;
+  name: string;
+  description: string;
+  image: string;
+  github: string;
+};
+
+function ProjectCard({
+  idx,
+  name,
+  description,
+  image,
+  github,
+}: ProjectCardProps) {
+  return (
+    <GradientBackground
+      className={`sm:flex sm:gap-2 ${
+        idx % 2 === 0 ? "sm:flex-row-reverse" : undefined
+      }`}
+    >
+      <div className="flex-1">
+        <div className="text-lg mb-4">{name}</div>
+        <div
+          style={{
+            background:
+              "radial-gradient(farthest-corner at 700px 700px, rgba(105,59,147,1) 0%, rgba(110,191,244,0.2) 77%, rgba(70,144,212,0.1) 85%)",
+          }}
+          className="p-6 rounded-md backdrop-blur-lg mb-4 text-sm sm:translate-x-[10%]"
+        >
+          {description}
+        </div>
+      </div>
+      <div>
+        <div className="p-2 rounded-sm w-full h-64 sm:w-96 bg-secondary mb-4">
+          <Image
+            src={image}
+            height={1440}
+            width={2886}
+            alt={name}
+            style={{ height: "100%" }}
+          />
+        </div>
+        <div className="flex gap-2">
+          <a
+            href={github}
+            target="_blank"
+            className="flex items-center gap-1 p-3 bg-secondary rounded-md hover:bg-secondary/80"
+          >
+            <Github />
+            Github
+            <MoveRight />
+          </a>
+        </div>
+      </div>
+    </GradientBackground>
   );
 }
