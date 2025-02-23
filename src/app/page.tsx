@@ -1,4 +1,4 @@
-import { aboutMe, topBarLinks, workExperiences } from "@/data";
+import { aboutMe, skills, topBarLinks, workExperiences } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,6 +10,7 @@ export default function Home() {
         <Hero />
         <AboutMe />
         <WorkExperience />
+        <Skills />
       </main>
     </div>
   );
@@ -123,7 +124,7 @@ function AboutMe() {
 
 function WorkExperience() {
   return (
-    <section id="work-experience">
+    <section id="work-experience" className="mb-12">
       <div className="text-2xl mb-4">Work Experience</div>
       <div className="grid grid-col-1 sm:grid-cols-2 gap-4">
         {workExperiences.map((workExperience) => (
@@ -175,6 +176,47 @@ function WorkExperienceCard({
           <div className="text-xs font-poppins">{duration}</div>
           <div className="text-xs font-poppins">{description}</div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function Skills() {
+  return (
+    <section id="skills">
+      <div className="text-2xl mb-4">Skills</div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {skills.map((skill) => (
+          <SkillCard key={skill.text} text={skill.text} image={skill.image} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+type SkillCardProps = {
+  text: string;
+  image: string;
+};
+
+function SkillCard({ text, image }: SkillCardProps) {
+  return (
+    <div
+      className="p-4 border border-secondary rounded-md"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(19,4,40,1) 7%, rgba(37,16,67,1) 34%, rgba(56,18,109,1) 52%, rgba(38,16,69,1) 85%, rgba(25,6,52,1) 99%)",
+      }}
+    >
+      <div className="flex flex-col gap-2 justify-center items-center">
+        <Image
+          className="flex-shrink-0"
+          src={image}
+          alt={text}
+          width={50}
+          height={50}
+        />
+        <div className="font-bold font-poppins">{text}</div>
       </div>
     </div>
   );

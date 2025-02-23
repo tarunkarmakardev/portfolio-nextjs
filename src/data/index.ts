@@ -49,3 +49,82 @@ export const aboutMe = {
         years now. I make meaningful and delightful digital products that create
         an equilibrium between user needs and business goals.`,
 };
+
+export const skills = [
+  {
+    text: "React Js",
+    image: "/reactjs.png",
+  },
+  {
+    text: "Javascript",
+    image: "/javascript.png",
+  },
+  {
+    text: "Typescript",
+    image: "/typescript.png",
+  },
+  {
+    text: "NextJs",
+    image: "/nextjs.png",
+  },
+  {
+    text: "Tanstack query",
+    image: "/tanstack.png",
+  },
+  {
+    text: "ChartJs",
+    image: "/chartjs.png",
+  },
+  {
+    text: "Recharts",
+    image: "/package.png",
+  },
+  {
+    text: "Formik",
+    image: "/formik.png",
+  },
+  {
+    text: "React Hook Form",
+    image: "/react-hook-form.png",
+  },
+  {
+    text: "Styled components",
+    image: "/styled-components.png",
+  },
+  {
+    text: "Tailwind",
+    image: "/tailwind.png",
+  },
+  {
+    text: "Zod",
+    image: "/zod.png",
+  },
+  {
+    text: "Redux",
+    image: "/redux.png",
+  },
+  {
+    text: "Zustand",
+    image: "/zustand.png",
+  },
+  {
+    text: "Docker",
+    image: "/docker.png",
+  },
+  {
+    text: "Github Actions",
+    image: "/github-actions.png",
+  },
+  {
+    text: "Prisma",
+    image: "/prisma.png",
+  },
+  {
+    text: "Node JS",
+    image: "/nodejs.png",
+  },
+  {
+    text: "Express JS",
+    image: "/express.png",
+  },
+];
