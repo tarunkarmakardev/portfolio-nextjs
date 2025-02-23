@@ -169,7 +169,7 @@ function WorkExperienceCard({
           width={100}
           height={25}
         />
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <div className="font-bold font-poppins">{position}</div>
           <div className="text-xs font-poppins">{company}</div>
           <div className="text-xs font-poppins">{duration}</div>

@@ -23,21 +23,20 @@ export const workExperiences = [
     position: "UI Developer",
     duration: "May 2022 - Present",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+      "Developed a scalable UI library and multi-app environment using Nx, Docker, and styled-components with shared utilities and customizable themes.",
   },
   {
     company: "Get Thrifty",
     position: "Software Developer",
     duration: "Feb 2022 - May 2022",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+    description: "Built UI for a cryptocurrency investment platform",
   },
   {
     company: "Null Innovation",
     position: "Junior Frontend Engineer",
     duration: "June 2021 - Feb 2022",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
+      "Built UI for AI-driven keyword research and social media scheduling app.",
   },
 ];
 
