@@ -1,3 +1,4 @@
+import { aboutMe, topBarLinks, workExperiences } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <TopBar />
-      <main className="p-2 text-white max-w-[900px] mx-auto">
+      <main className="p-3 text-white max-w-[900px] mx-auto">
         <Hero />
         <AboutMe />
         <WorkExperience />
@@ -14,32 +15,13 @@ export default function Home() {
   );
 }
 
-const topBarLinks = [
-  {
-    id: "work-experience",
-    text: "Work Experience",
-  },
-  {
-    id: "skills",
-    text: "Skills",
-  },
-  {
-    id: "projects",
-    text: "Projects",
-  },
-  {
-    id: "contact",
-    text: "Contact",
-  },
-];
-
 function TopBar() {
   return (
     <header className="flex justify-between items-center gap-2 p-2 bg-primary/80 filter top-0 sticky backdrop-blur-sm border-b border-secondary z-20">
       <div>
         <Logo />
       </div>
-      <div className="flex gap-2">
+      <div className="flex">
         {topBarLinks.map((link) => (
           <TopBarLink key={link.id} id={link.id} text={link.text} />
         ))}
@@ -55,7 +37,10 @@ type TopBarLinkProps = {
 
 function TopBarLink({ id, text }: TopBarLinkProps) {
   return (
-    <a href={`#${id}`} className="text-white px-4 text-sm">
+    <a
+      href={`#${id}`}
+      className="text-white p-2 text-xs sm:p-3 sm:text-base hover:bg-secondary rounded-md"
+    >
       {text}
     </a>
   );
@@ -69,37 +54,44 @@ function Logo() {
   );
 }
 
+function GradientBackground(props: React.ComponentPropsWithoutRef<"div">) {
+  return (
+    <div
+      style={{
+        background:
+          "radial-gradient(circle 180px, rgba(118, 60, 172, 0.4) 0%, rgba(60, 9, 112, 0.7) 60%, rgb(var(--color-primary)) 90%)",
+      }}
+      {...props}
+    />
+  );
+}
+
 function Hero() {
   const size = {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 280,
   };
   return (
-    <section className="mt-24 mb-4">
-      <div className="flex items-center gap-2 p-2">
-        <div
-          className="rounded-full relative"
-          style={{
-            background:
-              "radial-gradient(circle 150px, rgba(118, 60, 172, 0.4) 0%, rgba(60, 9, 112, 0.7) 60%, rgb(var(--color-primary)) 90%)",
-            ...size,
-          }}
-        >
-          <Image
-            src="/me.png"
-            alt="me"
-            height={size.height - size.height * 0.2}
-            width={size.width - size.width * 0.5}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          />
-          <div className="absolute text-white text-center text-2xl top-4 translate-x-60 text-nowrap">
+    <section className="mt-12 mb-12 sm:mt-24">
+      <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+        <div className="relative">
+          <GradientBackground className="px-16 py-4">
+            <Image
+              src="/me.png"
+              alt="me"
+              height={size.height}
+              width={size.width}
+              className=""
+            />
+          </GradientBackground>
+          <div className="absolute text-white text-center text-lg -top-3 translate-x-10 sm:text-2xl sm:translate-x-1/2 text-nowrap">
             Hello I am{" "}
             <span className="text-accent font-bold">Tarun Karmakar</span>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <div className="underline">A Developer who</div>
-          <div className="text-2xl">
+        <div>
+          <div className="underline mb-4">A Developer who</div>
+          <div className="text-2xl mb-2">
             Judges a book by its{" "}
             <span className="text-accent font-bold">cover...</span>
           </div>
@@ -114,52 +106,26 @@ function Hero() {
 
 function AboutMe() {
   return (
-    <section id="about" className="mb-20">
-      <div className="text-2xl mb-6">{"I'm a Software Engineer."}</div>
-      <div className="text-xs">
+    <section id="about" className="mb-12 sm:mt-24">
+      <div className="text-2xl mb-4">{"I'm a Software Engineer."}</div>
+      <div className="text-xs mb-2">
         My recent company was{" "}
-        <Link href="https://www.thedataplant.com/" target="_blank">
-          <span className="text-accent underline">Dataplant</span>
+        <Link href={aboutMe.recentCompany.url} target="_blank">
+          <span className="text-accent underline">
+            {aboutMe.recentCompany.text}
+          </span>
         </Link>
       </div>
-      <div className="text-sm mt-6">
-        A self-taught frontend developer, functioning in the industry nearly 4
-        years now. I make meaningful and delightful digital products that create
-        an equilibrium between user needs and business goals.
-      </div>
+      <div className="text-sm mb-2">{aboutMe.content}</div>
     </section>
   );
 }
 
-const workExperiences = [
-  {
-    company: "Dataplant Inc",
-    position: "UI Developer",
-    duration: "May 2022 - Present",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
-  },
-  {
-    company: "Get Thrifty",
-    position: "Software Developer",
-    duration: "Feb 2022 - May 2022",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
-  },
-  {
-    company: "Null Innovation",
-    position: "Junior Frontend Engineer",
-    duration: "June 2021 - Feb 2022",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam hic, repellat corrupti quas maxime ad facilis possimus dolores sit rerum.",
-  },
-];
-
 function WorkExperience() {
   return (
     <section id="work-experience">
-      <div className="text-2xl mb-6">Work Experience</div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="text-2xl mb-4">Work Experience</div>
+      <div className="grid grid-col-1 sm:grid-cols-2 gap-4">
         {workExperiences.map((workExperience) => (
           <WorkExperienceCard
             key={workExperience.company}
