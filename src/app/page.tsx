@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Github, MoveRight } from "lucide-react";
+import { cn } from "@/lib";
 
 export default function Home() {
   return (
@@ -224,7 +225,7 @@ function SkillCard({ text, image }: SkillCardProps) {
           width={50}
           height={50}
         />
-        <div className="font-bold font-poppins">{text}</div>
+        <div className="font-bold font-poppins text-center">{text}</div>
       </div>
     </div>
   );
@@ -265,11 +266,12 @@ function ProjectCard({
   image,
   github,
 }: ProjectCardProps) {
+  const isAlternative = idx % 2 === 0;
   return (
     <GradientBackground
-      className={`sm:flex sm:gap-2 ${
-        idx % 2 === 0 ? "sm:flex-row-reverse" : undefined
-      }`}
+      className={cn("sm:flex sm:gap-2", {
+        "sm:flex-row-reverse": isAlternative,
+      })}
     >
       <div className="flex-1">
         <div className="text-lg mb-4">{name}</div>
@@ -278,7 +280,12 @@ function ProjectCard({
             background:
               "radial-gradient(farthest-corner at 700px 700px, rgba(105,59,147,1) 0%, rgba(110,191,244,0.2) 77%, rgba(70,144,212,0.1) 85%)",
           }}
-          className="p-6 rounded-md backdrop-blur-lg mb-4 text-sm sm:translate-x-[10%]"
+          className={cn(
+            "p-6 rounded-md backdrop-blur-lg mb-4 text-sm sm:translate-x-[10%]",
+            {
+              "sm:-translate-x-[10%]": isAlternative,
+            }
+          )}
         >
           {description}
         </div>
