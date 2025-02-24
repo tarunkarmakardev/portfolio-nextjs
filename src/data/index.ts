@@ -146,3 +146,24 @@ export const projects = [
       "https://github.com/tarunkarmakardev/google-drive-sync-node-express",
   },
 ];
+
+export const contactChannels = [
+  {
+    type: "link",
+    address: "https://www.linkedin.com/in/tarun-karmakar-dev/",
+    icon: "/linkedin.png",
+    text: "Linkedin",
+  },
+  {
+    type: "link",
+    address: "https://github.com/tarunkarmakardev",
+    icon: "/github.png",
+    text: "Github",
+  },
+  {
+    type: "email",
+    address: "tarunkarmakardev@gmail.com",
+    icon: "/email.png",
+    text: "Email",
+  },
+];

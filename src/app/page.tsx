@@ -1,5 +1,6 @@
 import {
   aboutMe,
+  contactChannels,
   projects,
   skills,
   topBarLinks,
@@ -20,6 +21,7 @@ export default function Home() {
         <WorkExperience />
         <Skills />
         <Projects />
+        <Contact />
       </main>
     </div>
   );
@@ -243,7 +245,7 @@ function SkillCard({ text, image }: SkillCardProps) {
 
 function Projects() {
   return (
-    <section id="projects">
+    <section id="projects" className="mb-12">
       <div className="text-2xl mb-4">Projects</div>
       <div className="flex flex-col gap-2 sm:gap-16">
         {projects.map((project, idx) => (
@@ -320,5 +322,56 @@ function ProjectCard({
         </div>
       </div>
     </GradientBackground>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="projects">
+      <div className="text-2xl mb-4">Contact</div>
+      <div className="mb-4">Reach out to me on these channels</div>
+      <div className="flex gap-4">
+        {contactChannels.map((item) => (
+          <ContactCard
+            key={item.address}
+            address={item.address}
+            icon={item.icon}
+            type={item.type as ContactCardProps["type"]}
+            text={item.text}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+type ContactCardProps = {
+  type: "link" | "email";
+  address: string;
+  icon: string;
+  text: string;
+};
+
+function ContactCard({ address, icon, type, text }: ContactCardProps) {
+  const href = type === "email" ? `mailto:${address}` : address;
+  return (
+    <GradientCard variant="secondary" className="rounded-md">
+      <a
+        href={href}
+        target="_blank"
+        className="p-2 flex flex-col gap-2 justify-center items-center"
+      >
+        <div className="rounded-sm w-8 h-8">
+          <Image
+            src={icon}
+            height={980}
+            width={980}
+            alt={address}
+            style={{ height: "100%", width: "100%" }}
+          />
+        </div>
+        <div className="text-sm w-16 text-center">{text}</div>
+      </a>
+    </GradientCard>
   );
 }
