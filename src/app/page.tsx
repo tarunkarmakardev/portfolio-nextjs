@@ -75,6 +75,28 @@ function GradientBackground(props: React.ComponentPropsWithoutRef<"div">) {
     />
   );
 }
+const gradientCardVariants = {
+  primary:
+    "linear-gradient(90deg, rgba(19,4,40,1) 7%, rgba(37,16,67,1) 34%, rgba(56,18,109,1) 52%, rgba(38,16,69,1) 85%, rgba(25,6,52,1) 99%)",
+  secondary:
+    "radial-gradient(farthest-corner at 700px 700px, rgba(105,59,147,1) 0%, rgba(110,191,244,0.2) 77%, rgba(70,144,212,0.1) 85%)",
+};
+
+function GradientCard({
+  variant = "primary",
+  ...props
+}: React.ComponentPropsWithoutRef<"div"> & {
+  variant?: keyof typeof gradientCardVariants;
+}) {
+  return (
+    <div
+      style={{
+        background: gradientCardVariants[variant],
+      }}
+      {...props}
+    />
+  );
+}
 
 function Hero() {
   const size = {
@@ -164,13 +186,7 @@ function WorkExperienceCard({
   description,
 }: WorkExperienceCardProps) {
   return (
-    <div
-      className="p-4 border border-secondary rounded-md"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(19,4,40,1) 7%, rgba(37,16,67,1) 34%, rgba(56,18,109,1) 52%, rgba(38,16,69,1) 85%, rgba(25,6,52,1) 99%)",
-      }}
-    >
+    <GradientCard className="p-4 border border-secondary rounded-md">
       <div className="flex gap-2 items-center">
         <Image
           className="flex-shrink-0"
@@ -186,7 +202,7 @@ function WorkExperienceCard({
           <div className="text-xs font-poppins">{description}</div>
         </div>
       </div>
-    </div>
+    </GradientCard>
   );
 }
 
@@ -210,13 +226,7 @@ type SkillCardProps = {
 
 function SkillCard({ text, image }: SkillCardProps) {
   return (
-    <div
-      className="p-4 border border-secondary rounded-md"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(19,4,40,1) 7%, rgba(37,16,67,1) 34%, rgba(56,18,109,1) 52%, rgba(38,16,69,1) 85%, rgba(25,6,52,1) 99%)",
-      }}
-    >
+    <GradientCard className="p-4 border border-secondary rounded-md">
       <div className="flex flex-col gap-2 justify-center items-center">
         <Image
           className="flex-shrink-0"
@@ -227,7 +237,7 @@ function SkillCard({ text, image }: SkillCardProps) {
         />
         <div className="font-bold font-poppins text-center">{text}</div>
       </div>
-    </div>
+    </GradientCard>
   );
 }
 
@@ -275,11 +285,8 @@ function ProjectCard({
     >
       <div className="flex-1">
         <div className="text-lg mb-4">{name}</div>
-        <div
-          style={{
-            background:
-              "radial-gradient(farthest-corner at 700px 700px, rgba(105,59,147,1) 0%, rgba(110,191,244,0.2) 77%, rgba(70,144,212,0.1) 85%)",
-          }}
+        <GradientCard
+          variant="secondary"
           className={cn(
             "p-6 rounded-md backdrop-blur-lg mb-4 text-sm sm:translate-x-[10%]",
             {
@@ -288,7 +295,7 @@ function ProjectCard({
           )}
         >
           {description}
-        </div>
+        </GradientCard>
       </div>
       <div>
         <div className="p-2 rounded-sm w-full h-64 sm:w-96 bg-secondary mb-4">
