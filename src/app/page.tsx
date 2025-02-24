@@ -327,7 +327,7 @@ function ProjectCard({
 
 function Contact() {
   return (
-    <section id="projects">
+    <section id="contact">
       <div className="text-2xl mb-4">Contact</div>
       <div className="mb-4">Reach out to me on these channels</div>
       <div className="flex gap-4">
