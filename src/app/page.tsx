@@ -1,27 +1,63 @@
-import {
-  aboutMe,
-  contactChannels,
-  projects,
-  skills,
-  topBarLinks,
-  workExperiences,
-} from "@/data";
-import Image from "next/image";
+import { topBarLinks } from "@/data";
 import Link from "next/link";
-import { Github, MoveRight } from "lucide-react";
+import { Github, Mail, MoveRight, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib";
+import { PortfolioData, PortfolioDataSchema } from "@/data/schemas";
+import { Image } from "@/components/ui/image";
 
-export default function Home() {
+const DATA_URL = process.env["DATA_URL"]!;
+
+async function fetchPortfolioData() {
+  try {
+    const res = await fetch(DATA_URL, {
+      method: "GET",
+    });
+    const data = await res.text();
+    const jsonData = PortfolioDataSchema.parse(JSON.parse(data));
+    return jsonData;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    return null;
+  }
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const data = await fetchPortfolioData();
+  if (!data) {
+    return (
+      <main className="grid h-screen w-screen place-items-center">
+        <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="text-xl font-bold text-white flex gap-1 items-center">
+            <ShieldAlert /> Some Error Occurred
+          </div>
+          <div className="flex gap-1 items-center">
+            <div className="text-white">Please contact </div>
+            <a
+              className="text-accent"
+              href="mailto:tarunkarmakar.dev@gmail.com"
+            >
+              <div className="flex gap-1 items-center">
+                <Mail />
+                tarunkarmakar.dev@gmail.com
+              </div>
+            </a>
+          </div>
+        </div>
+      </main>
+    );
+  }
   return (
     <div>
       <TopBar />
       <main className="p-3 text-white max-w-[900px] mx-auto">
         <Hero />
-        <AboutMe />
-        <WorkExperience />
-        <Skills />
-        <Projects />
-        <Contact />
+        <AboutMe data={data} />
+        <WorkExperience data={data} />
+        <Skills data={data} />
+        <Projects data={data} />
+        <Contact data={data} />
       </main>
     </div>
   );
@@ -138,29 +174,29 @@ function Hero() {
   );
 }
 
-function AboutMe() {
+function AboutMe({ data }: { data: PortfolioData }) {
   return (
     <section id="about" className="mb-12 sm:mt-24">
       <div className="text-2xl mb-4">{"I'm a Software Engineer."}</div>
       <div className="text-xs mb-2">
         My recent company was{" "}
-        <Link href={aboutMe.recentCompany.url} target="_blank">
+        <Link href={data.aboutMe.recentCompany.url} target="_blank">
           <span className="text-accent underline">
-            {aboutMe.recentCompany.text}
+            {data.aboutMe.recentCompany.text}
           </span>
         </Link>
       </div>
-      <div className="text-sm mb-2">{aboutMe.content}</div>
+      <div className="text-sm mb-2">{data.aboutMe.content}</div>
     </section>
   );
 }
 
-function WorkExperience() {
+function WorkExperience({ data }: { data: PortfolioData }) {
   return (
     <section id="work-experience" className="mb-12">
       <div className="text-2xl mb-4">Work Experience</div>
       <div className="grid grid-col-1 sm:grid-cols-2 gap-4">
-        {workExperiences.map((workExperience) => (
+        {data.workExperiences.map((workExperience) => (
           <WorkExperienceCard
             key={workExperience.company}
             description={workExperience.description}
@@ -181,7 +217,7 @@ type WorkExperienceCardProps = {
   description: string;
 };
 
-function WorkExperienceCard({
+async function WorkExperienceCard({
   company,
   duration,
   position,
@@ -208,12 +244,12 @@ function WorkExperienceCard({
   );
 }
 
-function Skills() {
+function Skills({ data }: { data: PortfolioData }) {
   return (
     <section id="skills" className="mb-12">
       <div className="text-2xl mb-4">Skills</div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {skills.map((skill) => (
+        {data.skills.map((skill) => (
           <SkillCard key={skill.text} text={skill.text} image={skill.image} />
         ))}
       </div>
@@ -226,7 +262,7 @@ type SkillCardProps = {
   image: string;
 };
 
-function SkillCard({ text, image }: SkillCardProps) {
+async function SkillCard({ text, image }: SkillCardProps) {
   return (
     <GradientCard className="p-4 border border-secondary rounded-md">
       <div className="flex flex-col gap-2 justify-center items-center">
@@ -243,12 +279,12 @@ function SkillCard({ text, image }: SkillCardProps) {
   );
 }
 
-function Projects() {
+function Projects({ data }: { data: PortfolioData }) {
   return (
     <section id="projects" className="mb-12">
       <div className="text-2xl mb-4">Projects</div>
       <div className="flex flex-col gap-2 sm:gap-16">
-        {projects.map((project, idx) => (
+        {data.projects.map((project, idx) => (
           <ProjectCard
             key={project.name}
             idx={idx}
@@ -271,7 +307,7 @@ type ProjectCardProps = {
   github: string;
 };
 
-function ProjectCard({
+async function ProjectCard({
   idx,
   name,
   description,
@@ -303,10 +339,8 @@ function ProjectCard({
         <div className="p-2 rounded-sm w-full h-64 sm:w-96 bg-secondary mb-4">
           <Image
             src={image}
-            height={1440}
-            width={2886}
             alt={name}
-            style={{ height: "100%" }}
+            style={{ height: "100%", width: "100%" }}
           />
         </div>
         <div className="flex gap-2">
@@ -325,13 +359,13 @@ function ProjectCard({
   );
 }
 
-function Contact() {
+function Contact({ data }: { data: PortfolioData }) {
   return (
     <section id="contact">
       <div className="text-2xl mb-4">Contact</div>
       <div className="mb-4">Reach out to me on these channels</div>
       <div className="flex gap-4">
-        {contactChannels.map((item) => (
+        {data.contactChannels.map((item) => (
           <ContactCard
             key={item.address}
             address={item.address}
