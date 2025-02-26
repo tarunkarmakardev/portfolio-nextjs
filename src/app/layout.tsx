@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Preahvihear, Poppins } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 const preahvihear = Preahvihear({
   weight: "400",
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${preahvihear.variable} ${poppins.variable} bg-primary font-preahvihear`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
