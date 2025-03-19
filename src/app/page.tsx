@@ -1,6 +1,6 @@
 import { topBarLinks } from "@/data";
 import Link from "next/link";
-import { Github, Mail, MoveRight, ShieldAlert } from "lucide-react";
+import { Github, Mail, MoveRight, ShieldAlert, Eye } from "lucide-react";
 import { cn } from "@/lib";
 import { PortfolioData, PortfolioDataSchema } from "@/data/schemas";
 import { Image } from "@/components/ui/image";
@@ -292,6 +292,7 @@ function Projects({ data }: { data: PortfolioData }) {
             description={project.description}
             image={project.image}
             github={project.github}
+            url={project.url}
           />
         ))}
       </div>
@@ -305,6 +306,7 @@ type ProjectCardProps = {
   description: string;
   image: string;
   github: string;
+  url: string;
 };
 
 async function ProjectCard({
@@ -313,6 +315,7 @@ async function ProjectCard({
   description,
   image,
   github,
+  url,
 }: ProjectCardProps) {
   const isAlternative = idx % 2 === 0;
   return (
@@ -353,6 +356,15 @@ async function ProjectCard({
             Github
             <MoveRight />
           </a>
+          <a
+            href={url}
+            target="_blank"
+            className="flex items-center gap-1 p-3 bg-secondary rounded-md hover:bg-secondary/80"
+          >
+            <Eye />
+            Demo
+            <MoveRight />
+          </a>
         </div>
       </div>
     </GradientBackground>
@@ -364,7 +376,7 @@ function Contact({ data }: { data: PortfolioData }) {
     <section id="contact">
       <div className="text-2xl mb-4">Contact</div>
       <div className="mb-4">Reach out to me on these channels</div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         {data.contactChannels.map((item) => (
           <ContactCard
             key={item.address}
@@ -393,9 +405,9 @@ function ContactCard({ address, icon, type, text }: ContactCardProps) {
       <a
         href={href}
         target="_blank"
-        className="p-2 flex flex-col gap-2 justify-center items-center"
+        className="p-3 flex flex-col gap-2 justify-center items-center"
       >
-        <div className="rounded-sm w-8 h-8">
+        <div className="rounded-sm w-4 h-4 md:h-8 md:w-8">
           <Image
             src={icon}
             height={980}
@@ -404,7 +416,7 @@ function ContactCard({ address, icon, type, text }: ContactCardProps) {
             style={{ height: "100%", width: "100%" }}
           />
         </div>
-        <div className="text-sm w-16 text-center">{text}</div>
+        <div className="text-sm w-20 text-center">{text}</div>
       </a>
     </GradientCard>
   );

@@ -12,6 +12,7 @@ export const PortfolioDataSchema = z.object({
       description: z.string(),
       image: z.string(),
       github: z.string(),
+      url: z.string(),
     })
   ),
   contactChannels: z.array(
